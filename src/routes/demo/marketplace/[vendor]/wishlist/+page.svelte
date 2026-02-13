@@ -1,21 +1,16 @@
 <!-- src/routes/demo/marketplace/[vendor]/wishlist/+page.svelte -->
 <script lang="ts">
 	import { getCartContext } from '$lib/cart/cart-context.svelte';
+	import { formatPrice } from '$lib/utils/formatting';
 	import { getWishlistContext } from '$lib/wishlist/wishlist-context.svelte';
 	import WishlistButton from '$lib/wishlist/WishlistButton.svelte';
+	import { Heart } from 'lucide-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
 	const wishlist = getWishlistContext();
 	const cart = getCartContext();
-
-	function formatPrice(cents: number, currency: string): string {
-		return new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency
-		}).format(cents / 100);
-	}
 
 	function moveToCart(productId: string) {
 		const item = wishlist.items.find((i) => i.product.id === productId);
@@ -38,7 +33,9 @@
 
 	{#if wishlist.isEmpty}
 		<div class="empty-state">
-			<div class="empty-icon">💝</div>
+			<div class="empty-icon">
+				<Heart size={48} />
+			</div>
 			<h2>Your wishlist is empty</h2>
 			<p>Save your favorite products from {data.vendor.name} to come back to them later</p>
 			<a href="/demo/marketplace/{data.vendor.slug}" class="browse-btn"> Browse Products </a>
@@ -124,9 +121,11 @@
 	}
 
 	.empty-icon {
-		font-size: 4rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		margin-bottom: 1rem;
-		opacity: 0.5;
+		color: hsl(221.2 83.2% 53.3% / 0.5);
 	}
 
 	.empty-state h2 {

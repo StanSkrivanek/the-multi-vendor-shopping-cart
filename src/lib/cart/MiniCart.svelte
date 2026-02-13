@@ -1,20 +1,21 @@
 <!-- src/lib/cart/MiniCart.svelte -->
 <script lang="ts">
-	import { getCartContext } from './cart-context.svelte'
+	import { ShoppingCart } from 'lucide-svelte';
+	import { getCartContext } from './cart-context.svelte';
 
-	const cart = getCartContext()
+	const cart = getCartContext();
 
-	let isOpen = $state(false)
+	let isOpen = $state(false);
 
 	function formatPrice(cents: number): string {
 		return new Intl.NumberFormat('en-US', {
 			style: 'currency',
 			currency: cart.currency
-		}).format(cents / 100)
+		}).format(cents / 100);
 	}
 
 	function close() {
-		isOpen = false
+		isOpen = false;
 	}
 </script>
 
@@ -25,7 +26,9 @@
 		aria-expanded={isOpen}
 		aria-haspopup="dialog"
 	>
-		<span class="cart-icon">🛒</span>
+		<span class="cart-label">
+			<ShoppingCart size={20} />
+		</span>
 		{#if cart.itemCount > 0}
 			<span class="badge">{cart.totalQuantity}</span>
 		{/if}

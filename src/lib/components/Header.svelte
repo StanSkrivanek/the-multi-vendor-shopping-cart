@@ -1,22 +1,28 @@
 <!-- src/lib/components/Header.svelte -->
 <script lang="ts">
-	import CartIcon from '$lib/cart/CartIcon.svelte'
-	import WishlistIcon from '$lib/wishlist/WishlistIcon.svelte'
+	import { goto } from '$app/navigation';
+	import CartIcon from '$lib/cart/CartIcon.svelte';
+	import { ROUTES } from '$lib/config/routes';
+	import WishlistIcon from '$lib/wishlist/WishlistIcon.svelte';
+	import { ShoppingBag } from 'lucide-svelte';
 </script>
 
 <header class="site-header">
 	<div class="header-content">
-		<a href="/" class="logo"> Hackpile Store </a>
+		<a href={ROUTES.HOME} class="logo">
+			<ShoppingBag size={24} />
+			<span>Hackpile Store</span>
+		</a>
 
 		<nav class="main-nav">
-			<a href="/">Home</a>
-			<a href="/demo/products">Products</a>
-			<a href="/demo/marketplace">Marketplace</a>
+			<a href={ROUTES.HOME}>Home</a>
+			<a href={ROUTES.PRODUCTS}>Products</a>
+			<a href={ROUTES.MARKETPLACE}>Marketplace</a>
 		</nav>
 
 		<div class="header-actions">
-			<WishlistIcon onclick={() => (window.location.href = '/demo/wishlist')} />
-			<CartIcon onclick={() => (window.location.href = '/demo/cart')} />
+			<WishlistIcon onclick={() => goto(ROUTES.WISHLIST)} />
+			<CartIcon onclick={() => goto(ROUTES.CART)} />
 		</div>
 	</div>
 </header>
@@ -41,10 +47,14 @@
 	}
 
 	.logo {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 		font-size: 1.25rem;
 		font-weight: 700;
 		color: var(--color-foreground, #1e293b);
 		text-decoration: none;
+		transition: color 0.2s;
 	}
 
 	.logo:hover {

@@ -1,19 +1,21 @@
 <!-- src/lib/cart/CartSummary.svelte -->
 <script lang="ts">
-	import { getCartContext } from './cart-context.svelte'
+	import { formatPrice } from '$lib/utils/formatting';
+	import { Lightbulb } from 'lucide-svelte';
+	import { getCartContext } from './cart-context.svelte';
 
 	interface Props {
 		/** Show shipping row */
-		showShipping?: boolean
+		showShipping?: boolean;
 
 		/** Show discount input */
-		showDiscountInput?: boolean
+		showDiscountInput?: boolean;
 
 		/** Show item breakdown */
-		showBreakdown?: boolean
+		showBreakdown?: boolean;
 
 		/** Show discount code hints */
-		showHints?: boolean
+		showHints?: boolean;
 	}
 
 	let {
@@ -21,14 +23,14 @@
 		showDiscountInput = true,
 		showBreakdown = true,
 		showHints = true
-	}: Props = $props()
+	}: Props = $props();
 
-	const cart = getCartContext()
+	const cart = getCartContext();
 
 	// Discount code input state
-	let discountCode = $state('')
-	let discountError = $state('')
-	let showAllHints = $state(false)
+	let discountCode = $state('');
+	let discountError = $state('');
+	let showAllHints = $state(false);
 
 	// Demo discount codes for hints
 	const discountHints = [
@@ -37,30 +39,20 @@
 		{ code: 'FLAT5', description: '$5 off' },
 		{ code: 'WELCOME', description: '15% off' },
 		{ code: 'FREESHIP', description: 'Free shipping' }
-	]
-
-	/**
-	 * Formats cents as a currency string.
-	 */
-	function formatPrice(cents: number): string {
-		return new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency: cart.currency
-		}).format(cents / 100)
-	}
+	];
 
 	/**
 	 * Handles discount code submission.
 	 */
 	async function handleApplyDiscount() {
-		discountError = ''
+		discountError = '';
 
-		const result = await cart.applyDiscount(discountCode)
+		const result = await cart.applyDiscount(discountCode);
 
 		if (result.success) {
-			discountCode = ''
+			discountCode = '';
 		} else {
-			discountError = result.error ?? 'Invalid code'
+			discountError = result.error ?? 'Invalid code';
 		}
 	}
 
@@ -68,8 +60,8 @@
 	 * Apply a hint code directly
 	 */
 	function applyHintCode(code: string) {
-		discountCode = code
-		handleApplyDiscount()
+		discountCode = code;
+		handleApplyDiscount();
 	}
 </script>
 
@@ -156,7 +148,7 @@
 			{#if showHints}
 				<div class="discount-hints">
 					<button type="button" class="hints-toggle" onclick={() => (showAllHints = !showAllHints)}>
-						<span class="hints-icon">💡</span>
+						<span class="hints-icon"><Lightbulb size={16} /></span>
 						{showAllHints ? 'Hide' : 'Show'} demo codes
 					</button>
 
@@ -348,10 +340,6 @@
 
 	.hints-toggle:hover {
 		color: var(--color-primary, #3b82f6);
-	}
-
-	.hints-icon {
-		font-size: 0.875rem;
 	}
 
 	.hints-list {

@@ -1,18 +1,19 @@
 <!-- src/lib/cart/CartIcon.svelte -->
 <script lang="ts">
-	import { getCartContext } from './cart-context.svelte'
+	import { ShoppingCart } from 'lucide-svelte';
+	import { getCartContext } from './cart-context.svelte';
 
 	interface Props {
 		/** Click handler (e.g., to open cart drawer) */
-		onclick?: () => void
+		onclick?: () => void;
 	}
 
-	let { onclick }: Props = $props()
+	let { onclick }: Props = $props();
 
-	const cart = getCartContext()
+	const cart = getCartContext();
 
 	// Format badge for display (cap at 99+)
-	let badgeText = $derived(cart.totalQuantity > 99 ? '99+' : String(cart.totalQuantity))
+	let badgeText = $derived(cart.totalQuantity > 99 ? '99+' : String(cart.totalQuantity));
 </script>
 
 <button
@@ -21,19 +22,7 @@
 	{onclick}
 	aria-label="Shopping cart with {cart.totalQuantity} items"
 >
-	<svg
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		stroke-width="2"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-		aria-hidden="true"
-	>
-		<circle cx="9" cy="21" r="1" />
-		<circle cx="20" cy="21" r="1" />
-		<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-	</svg>
+	<ShoppingCart size={24} stroke-width={2} aria-hidden="true" />
 
 	{#if cart.totalQuantity > 0}
 		<span class="badge" aria-hidden="true">
@@ -60,11 +49,6 @@
 
 	.cart-icon:hover {
 		color: var(--color-primary, #3b82f6);
-	}
-
-	.cart-icon svg {
-		width: 24px;
-		height: 24px;
 	}
 
 	.badge {

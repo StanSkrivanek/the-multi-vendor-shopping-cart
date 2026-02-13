@@ -1,30 +1,31 @@
 <!-- src/lib/cart/CartDrawer.svelte -->
 <script lang="ts">
-	import { getCartContext } from './cart-context.svelte'
-	import QuantitySelector from './QuantitySelector.svelte'
-	import CartSummary from './CartSummary.svelte'
+	import { ShoppingCart } from 'lucide-svelte';
+	import { getCartContext } from './cart-context.svelte';
+	import CartSummary from './CartSummary.svelte';
+	import QuantitySelector from './QuantitySelector.svelte';
 
 	interface Props {
-		open: boolean
-		onclose: () => void
+		open: boolean;
+		onclose: () => void;
 	}
 
-	let { open, onclose }: Props = $props()
+	let { open, onclose }: Props = $props();
 
-	const cart = getCartContext()
+	const cart = getCartContext();
 
 	function formatPrice(cents: number): string {
 		return new Intl.NumberFormat('en-US', {
 			style: 'currency',
 			currency: cart.currency
-		}).format(cents / 100)
+		}).format(cents / 100);
 	}
 
 	function handleQuantityChange(itemId: string, quantity: number) {
 		if (quantity <= 0) {
-			cart.removeItem(itemId)
+			cart.removeItem(itemId);
 		} else {
-			cart.updateQuantity(itemId, quantity)
+			cart.updateQuantity(itemId, quantity);
 		}
 	}
 </script>
@@ -47,7 +48,9 @@
 
 		{#if cart.isEmpty}
 			<div class="empty-cart">
-				<div class="empty-icon">🛒</div>
+				<div class="empty-icon">
+					<ShoppingCart size={48} />
+				</div>
 				<p>Your cart is empty</p>
 				<a href="/products" class="browse-btn" onclick={onclose}> Browse Products </a>
 			</div>

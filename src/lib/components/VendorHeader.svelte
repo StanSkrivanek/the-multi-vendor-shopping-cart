@@ -1,6 +1,8 @@
 <!-- src/lib/components/VendorHeader.svelte -->
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import CartIcon from '$lib/cart/CartIcon.svelte';
+	import { ROUTES } from '$lib/config/routes';
 	import type { Vendor } from '$lib/data/products';
 	import WishlistIcon from '$lib/wishlist/WishlistIcon.svelte';
 
@@ -14,7 +16,7 @@
 <header class="vendor-header">
 	<div class="header-content">
 		<div class="header-left">
-			<a href="/demo/marketplace" class="back-link">
+			<a href={ROUTES.MARKETPLACE} class="back-link">
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 					<polyline points="15 18 9 12 15 6" />
 				</svg>
@@ -25,16 +27,14 @@
 		</div>
 
 		<nav class="header-nav">
-			<a href="/demo/marketplace/{vendor.slug}" class="nav-link">Products</a>
-			<a href="/demo/marketplace/{vendor.slug}/cart" class="nav-link">Cart</a>
-			<a href="/demo/marketplace/{vendor.slug}/wishlist" class="nav-link">Wishlist</a>
+			<a href={ROUTES.vendor(vendor.slug)} class="nav-link">Products</a>
+			<a href={ROUTES.vendorCart(vendor.slug)} class="nav-link">Cart</a>
+			<a href={ROUTES.vendorWishlist(vendor.slug)} class="nav-link">Wishlist</a>
 		</nav>
 
 		<div class="header-actions">
-			<WishlistIcon
-				onclick={() => (window.location.href = `/demo/marketplace/${vendor.slug}/wishlist`)}
-			/>
-			<CartIcon onclick={() => (window.location.href = `/demo/marketplace/${vendor.slug}/cart`)} />
+			<WishlistIcon onclick={() => goto(ROUTES.vendorWishlist(vendor.slug))} />
+			<CartIcon onclick={() => goto(ROUTES.vendorCart(vendor.slug))} />
 		</div>
 	</div>
 </header>

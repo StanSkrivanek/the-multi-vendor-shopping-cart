@@ -1,20 +1,16 @@
 <!-- src/routes/demo/marketplace/[vendor]/+page.svelte -->
 <script lang="ts">
 	import AddToCartButton from '$lib/cart/AddToCartButton.svelte';
+	import VendorLogo from '$lib/components/VendorLogo.svelte';
 	import { getProductsByVendor } from '$lib/data/products';
+	import { formatPrice } from '$lib/utils/formatting';
 	import WishlistButton from '$lib/wishlist/WishlistButton.svelte';
+	import { MapPin } from 'lucide-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
 	const products = $derived(getProductsByVendor(data.vendor.id));
-
-	function formatPrice(cents: number, currency: string): string {
-		return new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency
-		}).format(cents / 100);
-	}
 </script>
 
 <svelte:head>
@@ -24,11 +20,18 @@
 <div class="vendor-page">
 	<div class="vendor-hero">
 		<div class="hero-content">
-			<div class="vendor-logo-large">{data.vendor.logo}</div>
+			{#if data.vendor.logo}
+				<div class="vendor-logo-large">
+					<VendorLogo icon={data.vendor.logo} size={48} />
+				</div>
+			{/if}
 			<h1>{data.vendor.name}</h1>
 			<p class="vendor-description">{data.vendor.description}</p>
 			{#if data.vendor.location}
-				<p class="vendor-location">📍 {data.vendor.location}</p>
+				<p class="vendor-location">
+					<MapPin size={18} />
+					{data.vendor.location}
+				</p>
 			{/if}
 		</div>
 	</div>
@@ -96,8 +99,10 @@
 	}
 
 	.vendor-logo-large {
-		font-size: 5rem;
+		display: flex;
+		justify-content: center;
 		margin-bottom: 1rem;
+		color: white;
 	}
 
 	.vendor-hero h1 {
@@ -113,6 +118,10 @@
 	}
 
 	.vendor-location {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
 		font-size: 1rem;
 		opacity: 0.85;
 	}

@@ -1,19 +1,18 @@
 // src/lib/cart/cart-context.svelte.ts
 
-import { setContext, getContext, hasContext, onMount} from 'svelte';
-import { SvelteDate } from 'svelte/reactivity'; 
 import { browser } from '$app/environment';
+import { getContext, hasContext, onMount, setContext } from 'svelte';
 import type {
-	CartItem,
-	CartProduct,
-	CartItemOptions,
-	CartSummary,
-	CartContext,
-	CartOptions,
 	AddItemResult,
-	UpdateQuantityResult,
+	AppliedDiscount,
+	CartContext,
+	CartItem,
+	CartItemOptions,
+	CartOptions,
+	CartProduct,
+	CartSummary,
 	DiscountResult,
-	AppliedDiscount
+	UpdateQuantityResult
 } from './types';
 
 /**
@@ -78,7 +77,7 @@ export function createCartContext(options: CartOptions = {}): CartContext {
 			// Restore items with proper Date objects
 			items = data.items.map((item: CartItem) => ({
 				...item,
-				addedAt: new SvelteDate(item.addedAt)
+				addedAt: new Date(item.addedAt)
 			}));
 
 			// Restore discount if present
@@ -338,7 +337,7 @@ export function createCartContext(options: CartOptions = {}): CartContext {
 				product,
 				quantity: effectiveQty,
 				options,
-				addedAt: new SvelteDate(),
+				addedAt: new Date(),
 				lineTotal: effectiveQty * product.price
 			};
 

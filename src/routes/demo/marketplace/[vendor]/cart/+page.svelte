@@ -3,6 +3,7 @@
 	import { getCartContext } from '$lib/cart/cart-context.svelte';
 	import CartSummary from '$lib/cart/CartSummary.svelte';
 	import QuantitySelector from '$lib/cart/QuantitySelector.svelte';
+	import { ShoppingCart } from 'lucide-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -37,7 +38,9 @@
 
 	{#if cart.isEmpty}
 		<div class="empty-state">
-			<div class="empty-icon">🛒</div>
+			<div class="empty-icon">
+				<ShoppingCart size={48} />
+			</div>
 			<h2>Your cart is empty</h2>
 			<p>Browse products from {data.vendor.name} to get started</p>
 			<a href="/demo/marketplace/{data.vendor.slug}" class="browse-btn"> Browse Products </a>
@@ -148,9 +151,11 @@
 	}
 
 	.empty-icon {
-		font-size: 4rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		margin-bottom: 1rem;
-		opacity: 0.5;
+		color: hsl(221.2 83.2% 53.3% / 0.5);
 	}
 
 	.empty-state h2 {

@@ -1,6 +1,7 @@
 <!-- src/routes/demo/marketplace/all-carts/+page.svelte -->
 <script lang="ts">
 	import { createVendorSummaries } from '$lib/cart/vendor-carts.svelte';
+	import { Heart, ShoppingCart, Store } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 
 	const allVendors = createVendorSummaries();
@@ -27,17 +28,23 @@
 	<!-- Summary Stats -->
 	<div class="summary-stats">
 		<div class="stat-card">
-			<div class="stat-icon">🛒</div>
+			<div class="stat-icon">
+				<ShoppingCart size={28} />
+			</div>
 			<div class="stat-value">{grandTotalItems}</div>
 			<div class="stat-label">Total Cart Items</div>
 		</div>
 		<div class="stat-card">
-			<div class="stat-icon">💝</div>
+			<div class="stat-icon">
+				<Heart size={28} />
+			</div>
 			<div class="stat-value">{grandTotalWishlist}</div>
 			<div class="stat-label">Wishlisted Items</div>
 		</div>
 		<div class="stat-card">
-			<div class="stat-icon">🏪</div>
+			<div class="stat-icon">
+				<Store size={28} />
+			</div>
 			<div class="stat-value">{allVendors.vendorsWithItems.length}</div>
 			<div class="stat-label">Active Vendors</div>
 		</div>
@@ -59,7 +66,10 @@
 
 					{#if summary.cart.itemCount > 0}
 						<div class="section-block">
-							<h3>🛒 Cart ({summary.cart.totalQuantity} items)</h3>
+							<h3>
+								<ShoppingCart size={20} />
+								Cart ({summary.cart.totalQuantity} items)
+							</h3>
 							<div class="items-grid">
 								{#each summary.cart.items as item (item.id)}
 									<div class="item-card">
@@ -80,7 +90,10 @@
 
 					{#if summary.wishlist.count > 0}
 						<div class="section-block wishlist">
-							<h3>💝 Wishlist ({summary.wishlist.count} items)</h3>
+							<h3>
+								<Heart size={20} />
+								Wishlist ({summary.wishlist.count} items)
+							</h3>
 							<div class="items-grid">
 								{#each summary.wishlist.items as item (item.product.id)}
 									<div class="item-card">
@@ -130,8 +143,11 @@
 	}
 
 	.stat-icon {
-		font-size: 2rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 		margin-bottom: 0.5rem;
+		color: hsl(221.2 83.2% 53.3%);
 	}
 
 	.stat-value {
@@ -152,6 +168,15 @@
 		border-bottom: 2px solid #eee;
 		padding-bottom: 0.5rem;
 		margin-bottom: 1rem;
+	}
+
+	h3 {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin: 0 0 1rem;
+		color: #1e293b;
+		font-weight: 600;
 	}
 
 	.section-block {
