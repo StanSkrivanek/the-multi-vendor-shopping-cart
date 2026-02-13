@@ -1,6 +1,7 @@
 // src/lib/wishlist/wishlist-context.svelte.ts
 
 import { setContext, getContext, hasContext, onMount } from 'svelte';
+import { SvelteDate } from 'svelte/reactivity';
 import { browser } from '$app/environment';
 import type { CartProduct } from '$lib/cart/types';
 import type { WishlistItem, WishlistContext } from './types';
@@ -25,7 +26,7 @@ export function createWishlistContext(storageKey = 'wishlist'): WishlistContext 
 				const data = JSON.parse(stored);
 				items = data.map((item: WishlistItem) => ({
 					...item,
-					addedAt: new Date(item.addedAt)
+					addedAt: new SvelteDate(item.addedAt)
 				}));
 			}
 			isInitialized = true;
@@ -40,8 +41,8 @@ export function createWishlistContext(storageKey = 'wishlist'): WishlistContext 
 	});
 
 	// Derived Values
-	let count = $derived(items.length);
-	let isEmpty = $derived(items.length === 0);
+	const count = $derived(items.length);
+	const isEmpty = $derived(items.length === 0);
 
 	// Persistence Effect
 	$effect(() => {
@@ -63,7 +64,7 @@ export function createWishlistContext(storageKey = 'wishlist'): WishlistContext 
 
 		add(product: CartProduct): void {
 			if (!items.some((i) => i.product.id === product.id)) {
-				items.push({ product, addedAt: new Date() });
+				items.push({ product, addedAt: new SvelteDate() });
 			}
 		},
 

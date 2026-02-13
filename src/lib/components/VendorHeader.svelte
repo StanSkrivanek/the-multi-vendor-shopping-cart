@@ -1,14 +1,14 @@
 <!-- src/lib/components/VendorHeader.svelte -->
 <script lang="ts">
-	import CartIcon from '$lib/cart/CartIcon.svelte'
-	import WishlistIcon from '$lib/wishlist/WishlistIcon.svelte'
-	import type { Vendor } from '$lib/data/products'
+	import CartIcon from '$lib/cart/CartIcon.svelte';
+	import type { Vendor } from '$lib/data/products';
+	import WishlistIcon from '$lib/wishlist/WishlistIcon.svelte';
 
 	interface Props {
-		vendor: Vendor
+		vendor: Vendor;
 	}
 
-	let { vendor }: Props = $props()
+	let { vendor }: Props = $props();
 </script>
 
 <header class="vendor-header">
