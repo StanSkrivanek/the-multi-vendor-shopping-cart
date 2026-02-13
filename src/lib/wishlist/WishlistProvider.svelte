@@ -1,22 +1,22 @@
 <!-- src/lib/wishlist/WishlistProvider.svelte -->
 <script lang="ts">
-	import { untrack } from 'svelte'
-	import { createWishlistContext } from './wishlist-context.svelte'
-	import type { Snippet } from 'svelte'
+	import type { Snippet } from 'svelte';
+	import { untrack } from 'svelte';
+	import { createWishlistContext } from './wishlist-context.svelte';
 
 	interface Props {
 		/** localStorage key for persistence (default: 'wishlist') */
-		storageKey?: string
+		storageKey?: string;
 
 		/** Child content */
-		children: Snippet
+		children: Snippet;
 	}
 
-	let { storageKey = 'wishlist', children }: Props = $props()
+	let { storageKey = 'wishlist', children }: Props = $props();
 
 	untrack(() => {
-		createWishlistContext(storageKey)
-	})
+		createWishlistContext(storageKey);
+	});
 </script>
 
 {@render children()}
