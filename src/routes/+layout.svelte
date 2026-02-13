@@ -1,9 +1,9 @@
 <!-- src/routes/+layout.svelte -->
 <script lang="ts">
-	import CartProvider from '$lib/cart/CartProvider.svelte';
-	import Header from '$lib/components/Header.svelte';
-	import WishlistProvider from '$lib/wishlist/WishlistProvider.svelte';
-
+	// import CartProvider from '$lib/cart/CartProvider.svelte';
+	// import Header from '$lib/components/Header.svelte';
+	// import WishlistProvider from '$lib/wishlist/WishlistProvider.svelte';
+	import '../app.css';
 	let { children } = $props();
 </script>
 
@@ -13,8 +13,8 @@
 <!-- <CartProvider taxRate={0.08} freeShippingThreshold={7500} currency="USD">
 	<WishlistProvider>
 		<Header /> -->
-		<main>
-			{@render children()}
-		</main>
-	<!-- </WishlistProvider>
+<main>
+	{@render children()}
+</main>
+<!-- </WishlistProvider>
 </CartProvider> -->

@@ -1,5 +1,6 @@
 <!-- src/lib/wishlist/WishlistProvider.svelte -->
 <script lang="ts">
+	import { untrack } from 'svelte'
 	import { createWishlistContext } from './wishlist-context.svelte'
 	import type { Snippet } from 'svelte'
 
@@ -13,7 +14,9 @@
 
 	let { storageKey = 'wishlist', children }: Props = $props()
 
-	createWishlistContext(storageKey)
+	untrack(() => {
+		createWishlistContext(storageKey)
+	})
 </script>
 
 {@render children()}

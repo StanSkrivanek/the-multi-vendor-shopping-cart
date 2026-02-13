@@ -1,0 +1,13 @@
+@font-face {
+	font-family: 'regular';
+	src: url('/font/alexandria-regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+
+html, body {
+	/* font-family: var(--font-system-ui); */
+	font-family: 'regular';
+}
