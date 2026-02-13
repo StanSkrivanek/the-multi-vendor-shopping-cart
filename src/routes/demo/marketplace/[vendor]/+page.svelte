@@ -22,7 +22,7 @@
 		<div class="hero-content">
 			{#if data.vendor.logo}
 				<div class="vendor-logo-large">
-					<VendorLogo icon={data.vendor.logo} size={48} />
+					<VendorLogo icon={data.vendor.logo} size={48} stroke-width={2} />
 				</div>
 			{/if}
 			<h1>{data.vendor.name}</h1>
@@ -85,7 +85,7 @@
 	}
 
 	.vendor-hero {
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		background: rgb(249, 94, 38);
 		color: white;
 		padding: 3rem 1.5rem;
 		border-radius: 0.75rem;

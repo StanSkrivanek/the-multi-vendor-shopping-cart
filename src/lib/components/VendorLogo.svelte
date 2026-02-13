@@ -7,7 +7,7 @@
 		[key: string]: any;
 	}
 
-	let { icon, ...rest }: Props = $props();
+	let { icon, size = 24, strokeWidth = 2, ...rest }: Props = $props();
 
 	// Map icon names to components
 	const iconMap: Record<string, any> = {
@@ -21,4 +21,4 @@
 	const IconComponent = $derived(iconMap[icon] || ShoppingBag);
 </script>
 
-<IconComponent {...rest} />
+<IconComponent {size} {strokeWidth} {...rest} />

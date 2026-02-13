@@ -144,7 +144,8 @@ export const products: Product[] = [
 		name: 'Macrame Wall Hanging',
 		description: 'Bohemian-style macrame wall art, handcrafted with natural cotton',
 		price: 8999, // $89.99
-		image: 'https://images.unsplash.com/photo-1595815771614-fbd07c51b4fb?w=500&q=80',
+		// image: 'https://images.unsplash.com/photo-1595815771614-fbd07c51b4fb?w=500&q=80',
+		image: 'https://images.unsplash.com/photo-1632761644913-0da6105863cb?w=500&q=80',
 		category: 'Home Decor',
 		sku: 'ACC-MAC-005',
 		maxQuantity: 5,
