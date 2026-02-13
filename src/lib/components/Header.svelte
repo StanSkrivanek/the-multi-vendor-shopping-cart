@@ -16,8 +16,9 @@
 
 		<nav class="main-nav">
 			<a href={ROUTES.HOME}>Home</a>
-			<a href={ROUTES.PRODUCTS}>Products</a>
-			<a href={ROUTES.MARKETPLACE}>Marketplace</a>
+			<a href={ROUTES.DEMO}>Demo</a>
+			<!-- <a href={ROUTES.PRODUCTS}>Products</a>
+			<a href={ROUTES.MARKETPLACE}>Marketplace</a> -->
 		</nav>
 
 		<div class="header-actions">
