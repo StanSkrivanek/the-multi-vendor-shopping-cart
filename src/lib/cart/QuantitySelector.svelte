@@ -2,7 +2,7 @@
 <script lang="ts">
 	interface Props {
 		/** Current quantity */
-		value: number;
+		value?: number;
 
 		/** Minimum allowed (default: 1) */
 		min?: number;
@@ -11,7 +11,7 @@
 		max?: number;
 
 		/** Called when quantity changes */
-		onchange: (quantity: number) => void;
+		onchange?: (quantity: number) => void;
 
 		/** Disable all controls */
 		disabled?: boolean;
@@ -20,20 +20,29 @@
 		compact?: boolean;
 	}
 
-	let { value, min = 1, max, onchange, disabled = false, compact = false }: Props = $props();
+	let {
+		value = $bindable(1),
+		min = 1,
+		max,
+		onchange,
+		disabled = false,
+		compact = false
+	}: Props = $props();
 
 	let canDecrement = $derived(value > min && !disabled);
 	let canIncrement = $derived((!max || value < max) && !disabled);
 
 	function decrement() {
 		if (canDecrement) {
-			onchange(value - 1);
+			value -= 1;
+			onchange?.(value);
 		}
 	}
 
 	function increment() {
 		if (canIncrement) {
-			onchange(value + 1);
+			value += 1;
+			onchange?.(value);
 		}
 	}
 
@@ -48,7 +57,8 @@
 			newValue = max;
 		}
 
-		onchange(newValue);
+		value = newValue;
+		onchange?.(value);
 	}
 </script>
 
@@ -68,7 +78,7 @@
 	<input
 		type="number"
 		class="qty-input"
-		{value}
+		bind:value
 		{min}
 		{max}
 		{disabled}

@@ -1,7 +1,7 @@
 // src/lib/cart/cart-context.svelte.ts
 
 import { browser } from '$app/environment';
-import { getContext, hasContext, onMount, setContext } from 'svelte';
+import { getContext, hasContext, setContext } from 'svelte';
 import { SvelteDate } from 'svelte/reactivity';
 import type {
 	AddItemResult,
@@ -94,7 +94,8 @@ export function createCartContext(options: CartOptions = {}): CartContext {
 	}
 
 	// Load on mount (client-side only)
-	onMount(() => {
+	$effect.pre(() => {
+		if (!browser || isInitialized) return;
 		loadFromStorage();
 	});
 
@@ -252,31 +253,14 @@ export function createCartContext(options: CartOptions = {}): CartContext {
 	// ─────────────────────────────────────────────────────────────
 
 	const context: CartContext = {
-		// Reactive getters
-		get items() {
-			return items;
-		},
-		get summary() {
-			return summary;
-		},
-		get isEmpty() {
-			return isEmpty;
-		},
-		get isLoading() {
-			return isLoading;
-		},
-		get appliedDiscount() {
-			return appliedDiscount;
-		},
-		get currency() {
-			return currency;
-		},
-		get itemCount() {
-			return itemCount;
-		},
-		get totalQuantity() {
-			return totalQuantity;
-		},
+		items,
+		summary,
+		isEmpty,
+		isLoading,
+		appliedDiscount,
+		currency,
+		itemCount,
+		totalQuantity,
 
 		/**
 		 * Adds an item to the cart or increases quantity if already present.

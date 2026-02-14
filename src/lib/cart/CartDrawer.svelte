@@ -31,8 +31,19 @@
 </script>
 
 {#if open}
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="drawer-backdrop" onclick={onclose}></div>
+	<div
+		class="drawer-backdrop"
+		role="button"
+		tabindex="0"
+		aria-label="Close cart overlay"
+		onclick={onclose}
+		onkeydown={(event) => {
+			if (event.key === 'Escape' || event.key === 'Enter' || event.key === ' ') {
+				event.preventDefault();
+				onclose();
+			}
+		}}
+	></div>
 
 	<!-- svelte-ignore a11y_no_noninteractive_element_to_interactive_role -->
 	<aside class="cart-drawer" role="dialog" aria-label="Shopping cart" aria-modal="true">
@@ -97,7 +108,7 @@
 
 							<div class="item-footer">
 								<QuantitySelector
-									value={item.quantity}
+									bind:value={item.quantity}
 									max={item.product.maxQuantity}
 									onchange={(qty) => handleQuantityChange(item.id, qty)}
 									compact

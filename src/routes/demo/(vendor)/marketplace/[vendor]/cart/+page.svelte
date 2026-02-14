@@ -73,7 +73,7 @@
 								{/if}
 								{#if Object.keys(item.options).length > 0}
 									<div class="item-options">
-										{#each Object.entries(item.options).filter(([_, v]) => v) as [key, value]}
+										{#each Object.entries(item.options).filter(([_, v]) => v) as [key, value] (key)}
 											<span class="option">{key}: {value}</span>
 										{/each}
 									</div>
@@ -85,7 +85,7 @@
 
 							<div class="item-actions">
 								<QuantitySelector
-									value={item.quantity}
+									bind:value={item.quantity}
 									max={item.product.maxQuantity}
 									onchange={(qty) => handleQuantityChange(item.id, qty)}
 								/>

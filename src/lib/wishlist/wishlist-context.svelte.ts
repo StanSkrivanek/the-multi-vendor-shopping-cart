@@ -2,9 +2,9 @@
 
 import { browser } from '$app/environment';
 import type { CartProduct } from '$lib/cart/types';
-import { getContext, hasContext, onMount, setContext } from 'svelte';
-import type { WishlistContext, WishlistItem } from './types';
+import { getContext, hasContext, setContext } from 'svelte';
 import { SvelteDate } from 'svelte/reactivity';
+import type { WishlistContext, WishlistItem } from './types';
 
 /**
  * Symbol key ensures no collisions with cart context.
@@ -36,7 +36,8 @@ export function createWishlistContext(storageKey = 'wishlist'): WishlistContext 
 		}
 	}
 
-	onMount(() => {
+	$effect.pre(() => {
+		if (!browser || isInitialized) return;
 		loadFromStorage();
 	});
 
@@ -52,15 +53,9 @@ export function createWishlistContext(storageKey = 'wishlist'): WishlistContext 
 
 	// Context Object
 	const context: WishlistContext = {
-		get items() {
-			return items;
-		},
-		get count() {
-			return count;
-		},
-		get isEmpty() {
-			return isEmpty;
-		},
+		items,
+		count,
+		isEmpty,
 
 		add(product: CartProduct): void {
 			if (!items.some((i) => i.product.id === product.id)) {
