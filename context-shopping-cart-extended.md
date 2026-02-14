@@ -208,14 +208,14 @@ Before writing code, define what a production cart needs to handle. Thinking thr
 
 ### Core Requirements
 
-| Category | Operations | Description |
-| --- | --- | --- |
-| Item management | Add, update, remove | Handle products with variants (size, color) |
-| Quantity control | Increment, decrement, set | Respect stock limits, validate ranges |
-| Calculations | Subtotal, tax, shipping, total | Reactive, automatic recalculation |
-| Discounts | Apply, validate, remove | Server-validated promotional codes |
-| Persistence | Save, load, sync | Survive page refreshes, optionally sync to server |
-| Queries | Check contents, get quantities | Efficient lookups for UI state |
+| Category         | Operations                     | Description                                       |
+| ---------------- | ------------------------------ | ------------------------------------------------- |
+| Item management  | Add, update, remove            | Handle products with variants (size, color)       |
+| Quantity control | Increment, decrement, set      | Respect stock limits, validate ranges             |
+| Calculations     | Subtotal, tax, shipping, total | Reactive, automatic recalculation                 |
+| Discounts        | Apply, validate, remove        | Server-validated promotional codes                |
+| Persistence      | Save, load, sync               | Survive page refreshes, optionally sync to server |
+| Queries          | Check contents, get quantities | Efficient lookups for UI state                    |
 
 ### Data Modeling Decisions
 
