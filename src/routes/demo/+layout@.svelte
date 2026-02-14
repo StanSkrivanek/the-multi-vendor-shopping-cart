@@ -1,30 +1,30 @@
-<!-- src/routes/+layout.svelte -->
+<!-- src/routes/demo/+layout@.svelte -->
 <script lang="ts">
     import CartProvider from '$lib/cart/CartProvider.svelte'
     import Header from '$lib/components/Header.svelte'
     import WishlistProvider from '$lib/wishlist/WishlistProvider.svelte'
     import { layoutState } from '$lib/contexts/layout-context.svelte'
-    import '../app.css'
+    import '../../app.css'
     
     let { children } = $props()
 </script>
 
-<!-- Root app contexts -->
+<!-- Demo-specific contexts (isolated from root) -->
 <CartProvider taxRate={0.08} freeShippingThreshold={7500} currency="USD">
-    <WishlistProvider>
-        <!-- {#if !layoutState.hideMainHeader}
+    <WishlistProvider storageKey="demo-wishlist">
+        {#if !layoutState.hideMainHeader}
             <Header />
-        {/if} -->
-        <main>
+        {/if}
+        <main class="demo-layout">
             {@render children()}
         </main>
     </WishlistProvider>
 </CartProvider>
 
-<!-- <style>
-    main {
+<style>
+    .demo-layout {
         max-width: 1280px;
         margin: 0 auto;
-        padding: 2rem 1.5rem;
+        padding: 1.5rem;
     }
-</style> -->
+</style>

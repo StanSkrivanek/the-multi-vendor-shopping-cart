@@ -104,7 +104,9 @@
 									</div>
 								{/each}
 							</div>
-							<a href="/demo/marketplace/{summary.vendor.slug}/wishlist">Go to Wishlist →</a>
+							<div class="section-footer">
+								<a href="/demo/marketplace/{summary.vendor.slug}/wishlist">Go to Wishlist →</a>
+							</div>
 						</div>
 					{/if}
 				</div>
@@ -168,6 +170,7 @@
 		border-bottom: 2px solid #eee;
 		padding-bottom: 0.5rem;
 		margin-bottom: 1rem;
+		color: #f68754;
 	}
 
 	h3 {

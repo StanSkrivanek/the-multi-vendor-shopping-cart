@@ -119,7 +119,7 @@ export const products: Product[] = [
 		image: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=80',
 		category: 'Audio',
 		sku: 'TGP-SP-003',
-		maxQuantity: 20,
+		maxQuantity: 12,
 		inStock: true,
 		tags: ['electronics', 'audio', 'portable', 'waterproof']
 	},
@@ -161,7 +161,7 @@ export const products: Product[] = [
 		image: 'https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=500&q=80',
 		category: 'Stationery',
 		sku: 'ACC-JRN-006',
-		maxQuantity: 12,
+		maxQuantity: 2,
 		inStock: true,
 		tags: ['handmade', 'leather', 'journal', 'stationery']
 	},
@@ -176,7 +176,7 @@ export const products: Product[] = [
 		image: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500&q=80',
 		category: 'Fitness',
 		sku: 'FLE-YGA-007',
-		maxQuantity: 25,
+		maxQuantity: 5,
 		inStock: true,
 		tags: ['fitness', 'yoga', 'eco-friendly', 'exercise']
 	},
@@ -189,7 +189,7 @@ export const products: Product[] = [
 		image: 'https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=500&q=80',
 		category: 'Fitness',
 		sku: 'FLE-RES-008',
-		maxQuantity: 30,
+		maxQuantity: 3,
 		inStock: true,
 		tags: ['fitness', 'resistance', 'exercise', 'portable']
 	},
@@ -202,7 +202,7 @@ export const products: Product[] = [
 		image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&q=80',
 		category: 'Hydration',
 		sku: 'FLE-BTL-009',
-		maxQuantity: 40,
+		maxQuantity: 4,
 		inStock: true,
 		tags: ['fitness', 'hydration', 'insulated', 'eco-friendly']
 	},
@@ -218,7 +218,7 @@ export const products: Product[] = [
 			'https://images.unsplash.com/photo-1643122966676-29e8597257f7?w=500&q=80',
 		category: 'Home Fragrance',
 		sku: 'HSL-CND-010',
-		maxQuantity: 18,
+		maxQuantity: 8,
 		inStock: true,
 		tags: ['home', 'candles', 'fragrance', 'soy']
 	},
@@ -231,7 +231,7 @@ export const products: Product[] = [
 		image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&q=80',
 		category: 'Lighting',
 		sku: 'HSL-LMP-011',
-		maxQuantity: 10,
+		maxQuantity: 4,
 		inStock: true,
 		tags: ['home', 'lighting', 'modern', 'minimalist']
 	},
@@ -244,7 +244,7 @@ export const products: Product[] = [
 		image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=500&q=80',
 		category: 'Textiles',
 		sku: 'HSL-PIL-012',
-		maxQuantity: 15,
+		maxQuantity: 5,
 		inStock: true,
 		tags: ['home', 'textiles', 'decor', 'pillows']
 	}

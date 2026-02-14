@@ -1,12 +1,18 @@
-<!-- src/routes/marketplace/[vendor]/+layout.svelte -->
 <!-- src/routes/demo/marketplace/[vendor]/+layout.svelte -->
 <script lang="ts">
-	import CartProvider from '$lib/cart/CartProvider.svelte'
-	import WishlistProvider from '$lib/wishlist/WishlistProvider.svelte'
-	import VendorHeader from '$lib/components/VendorHeader.svelte'
-	import type { LayoutData } from './$types'
+	import CartProvider from '$lib/cart/CartProvider.svelte';
+	import VendorHeader from '$lib/components/VendorHeader.svelte';
+	import { layoutState } from '$lib/contexts/layout-context.svelte';
+	import WishlistProvider from '$lib/wishlist/WishlistProvider.svelte';
+	import type { LayoutData } from './$types';
 
-	let { data, children }: { data: LayoutData; children: any } = $props()
+	let { data, children }: { data: LayoutData; children: any } = $props();
+
+	// Hide main header when this layout is active, restore when leaving
+	$effect(() => {
+		layoutState.hideMainHeader = true;
+		return () => (layoutState.hideMainHeader = false);
+	});
 </script>
 
 <!-- Vendor-specific cart AND wishlist (nested, overrides parent contexts) -->
@@ -18,13 +24,17 @@
 >
 	<WishlistProvider storageKey="{data.vendor.id}-wishlist">
 		<VendorHeader vendor={data.vendor} />
-		
+
 		<div class="vendor-layout">
 			<div class="vendor-info-banner">
 				<span class="vendor-badge">{data.vendor.currency}</span>
 				<span class="vendor-detail">Tax: {(data.vendor.taxRate * 100).toFixed(1)}%</span>
 				<span class="vendor-detail">
-					Shipping: {data.vendor.currency === 'USD' ? '$' : data.vendor.currency === 'GBP' ? '£' : '€'}{(data.vendor.shippingCost / 100).toFixed(2)}
+					Shipping: {data.vendor.currency === 'USD'
+						? '$'
+						: data.vendor.currency === 'GBP'
+							? '£'
+							: '€'}{(data.vendor.shippingCost / 100).toFixed(2)}
 				</span>
 			</div>
 
@@ -65,4 +75,3 @@
 		color: var(--color-muted, #64748b);
 	}
 </style>
-

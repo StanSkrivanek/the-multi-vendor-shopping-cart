@@ -1,9 +1,17 @@
 <!-- src/routes/demo/+page.svelte -->
 <script>
 	import { getCartContext } from '$lib/cart/cart-context.svelte';
+	import { createVendorSummaries } from '$lib/cart/vendor-carts.svelte';
+	import { formatPrice } from '$lib/utils/formatting';
 	import { Heart, Package, ShoppingCart, Store } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
 	const cart = getCartContext();
+	const allVendors = createVendorSummaries();
+
+	onMount(() => {
+		allVendors.refresh();
+	});
 </script>
 
 <div class="demo-home">
@@ -11,15 +19,63 @@
 		<h1>Shopping Cart Demo</h1>
 		<p class="subtitle">A production-grade shopping cart built with Svelte 5 Context API</p>
 
-		<div class="stats">
-			<div class="stat-card">
-				<div class="stat-value">{cart.itemCount}</div>
-				<div class="stat-label">Items in Cart</div>
+		<div class="stats-section">
+			<!-- Global Cart Stats -->
+			<div class="stats">
+				<div class="stat-card">
+					<div class="stat-icon">
+						<ShoppingCart size={24} />
+					</div>
+					<div class="stat-value">{cart.itemCount}</div>
+					<div class="stat-label">Items in Cart</div>
+				</div>
+				<div class="stat-card">
+					<div class="stat-icon">
+						<Package size={24} />
+					</div>
+					<div class="stat-value">{cart.totalQuantity}</div>
+					<div class="stat-label">Total Units</div>
+				</div>
 			</div>
-			<div class="stat-card">
-				<div class="stat-value">{cart.totalQuantity}</div>
-				<div class="stat-label">Total Units</div>
-			</div>
+
+			<!-- Vendor Carts/Wishlists Summary -->
+			{#if allVendors.vendorsWithItems.length > 0}
+				<div class="vendor-summary">
+					<h3>
+						<Store size={20} />
+						Active Vendors ({allVendors.vendorsWithItems.length})
+					</h3>
+					<div class="vendor-list">
+						{#each allVendors.vendorsWithItems as summary (summary.vendor.id)}
+							<a href="/demo/marketplace/{summary.vendor.slug}" class="vendor-item">
+								<div class="vendor-item-header">
+									<span class="vendor-name">{summary.vendor.name}</span>
+								</div>
+								<div class="vendor-item-stats">
+									{#if summary.cart.itemCount > 0}
+										<span class="vendor-stat">
+											<ShoppingCart size={14} />
+											{summary.cart.totalQuantity} items
+										</span>
+									{/if}
+									{#if summary.wishlist.count > 0}
+										<span class="vendor-stat wishlist">
+											<Heart size={14} />
+											{summary.wishlist.count}
+										</span>
+									{/if}
+								</div>
+								{#if summary.cart.subtotal > 0}
+									<div class="vendor-subtotal">
+										{formatPrice(summary.cart.subtotal, summary.vendor.currency)}
+									</div>
+								{/if}
+							</a>
+						{/each}
+					</div>
+					<a href="/demo/marketplace/all-carts" class="view-all-link">View All Carts →</a>
+				</div>
+			{/if}
 		</div>
 	</div>
 
@@ -108,6 +164,13 @@
 		color: var(--color-muted, #64748b);
 	}
 
+	.stats-section {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		align-items: center;
+	}
+
 	.stats {
 		display: flex;
 		gap: 2rem;
@@ -120,6 +183,19 @@
 		border: 1px solid var(--color-border, #e2e8f0);
 		border-radius: 12px;
 		min-width: 140px;
+		text-align: center;
+	}
+
+	.stat-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		margin: 0 auto 0.5rem;
+		background: hsl(221.2 83.2% 53.3% / 0.1);
+		border-radius: 8px;
+		color: hsl(221.2 83.2% 53.3%);
 	}
 
 	.stat-value {
@@ -134,6 +210,110 @@
 		color: var(--color-muted, #64748b);
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
+	}
+
+	/* Vendor Summary Section */
+	.vendor-summary {
+		background: white;
+		border: 1px solid var(--color-border, #e2e8f0);
+		border-radius: 12px;
+		padding: 1.5rem;
+		width: 100%;
+		max-width: 600px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	}
+
+	.vendor-summary h3 {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin: 0 0 1.25rem;
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: var(--color-foreground, #1e293b);
+	}
+
+	.vendor-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		margin-bottom: 1rem;
+	}
+
+	.vendor-item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem;
+		background: #f8fafc;
+		border: 1px solid var(--color-border, #e2e8f0);
+		border-radius: 8px;
+		text-decoration: none;
+		transition: all 0.2s;
+		gap: 1rem;
+	}
+
+	.vendor-item:hover {
+		background: #f1f5f9;
+		border-color: var(--color-primary, #3b82f6);
+		box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+	}
+
+	.vendor-item-header {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.vendor-name {
+		font-weight: 600;
+		color: var(--color-foreground, #1e293b);
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.vendor-item-stats {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	.vendor-stat {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: 0.875rem;
+		color: var(--color-primary, #3b82f6);
+		font-weight: 500;
+	}
+
+	.vendor-stat.wishlist {
+		color: #ec4899;
+	}
+
+	.vendor-subtotal {
+		font-weight: 600;
+		color: var(--color-foreground, #1e293b);
+		white-space: nowrap;
+	}
+
+	.view-all-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		padding: 0.75rem;
+		background: var(--color-primary, #3b82f6);
+		color: white;
+		text-decoration: none;
+		border-radius: 8px;
+		font-weight: 500;
+		transition: background 0.2s;
+	}
+
+	.view-all-link:hover {
+		background: var(--color-primary-hover, #2563eb);
 	}
 
 	.features h2 {
@@ -222,5 +402,35 @@
 
 	.technical-features strong {
 		color: var(--color-primary, #3b82f6);
+	}
+
+	/* Responsive Design */
+	@media (max-width: 768px) {
+		.stats {
+			flex-direction: column;
+			width: 100%;
+		}
+
+		.stat-card {
+			width: 100%;
+		}
+
+		.vendor-summary {
+			max-width: 100%;
+		}
+
+		.vendor-item {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.vendor-item-stats {
+			width: 100%;
+		}
+
+		.vendor-subtotal {
+			width: 100%;
+			text-align: right;
+		}
 	}
 </style>
