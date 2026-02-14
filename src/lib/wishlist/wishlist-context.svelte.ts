@@ -53,9 +53,15 @@ export function createWishlistContext(storageKey = 'wishlist'): WishlistContext 
 
 	// Context Object
 	const context: WishlistContext = {
-		items,
-		count,
-		isEmpty,
+		get items() {
+			return items;
+		},
+		get count() {
+			return count;
+		},
+		get isEmpty() {
+			return isEmpty;
+		},
 
 		add(product: CartProduct): void {
 			if (!items.some((i) => i.product.id === product.id)) {

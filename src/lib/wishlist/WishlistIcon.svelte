@@ -47,10 +47,18 @@
 		cursor: pointer;
 		color: var(--color-foreground, #1e293b);
 		transition: color 0.2s;
+		/* flex-shrink: 0;
+		outline: none; */
 	}
 
 	.wishlist-icon:hover {
 		color: var(--color-error, #dc2626);
+	}
+
+	.wishlist-icon:focus-visible {
+		outline: 2px solid var(--color-error, #dc2626);
+		outline-offset: 2px;
+		border-radius: 4px;
 	}
 
 	.badge {

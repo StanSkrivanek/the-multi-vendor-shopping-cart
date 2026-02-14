@@ -47,7 +47,7 @@
 		<div class="wishlist-grid">
 			{#each wishlist.items as { product } (product.id)}
 				<ProductCard {product} price={formatPrice(product.price)} variant="wishlist">
-					{@snippet image()}
+					{#snippet image()}
 						{#if product.image}
 							<img src={product.image} alt={product.name} />
 						{:else}
@@ -55,18 +55,18 @@
 								{product.name.charAt(0)}
 							</div>
 						{/if}
-						<div class="wishlist-icon">
+						<div class="wishlist-action">
 							<WishlistButton {product} />
 						</div>
 					{/snippet}
 
-					{@snippet meta()}
+					{#snippet meta()}
 						{#if product.sku}
 							<p class="product-sku">SKU: {product.sku}</p>
 						{/if}
 					{/snippet}
 
-					{@snippet actions()}
+					{#snippet actions()}
 						<button class="add-to-cart-btn" onclick={() => moveToCart(product.id)}>
 							Add to Cart
 						</button>
@@ -101,6 +101,77 @@
 	.vendor-name {
 		font-size: 1rem;
 		color: var(--color-muted, #64748b);
+	}
+
+	.wishlist-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1.5rem;
+	}
+
+	.item-count {
+		font-size: 1rem;
+		color: var(--color-muted, #64748b);
+	}
+
+	.empty-state {
+		text-align: center;
+		padding: 4rem 2rem;
+		background: white;
+		border-radius: 0.75rem;
+		border: 1px solid var(--color-border, #e2e8f0);
+	}
+
+	.empty-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 1rem;
+		color: hsl(221.2 83.2% 53.3% / 0.5);
+	}
+
+	.empty-state h2 {
+		font-size: 1.5rem;
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+		color: var(--color-foreground, #1e293b);
+	}
+
+	.empty-state p {
+		color: var(--color-muted, #64748b);
+		margin-bottom: 1.5rem;
+	}
+
+	.browse-btn {
+		display: inline-block;
+		padding: 0.75rem 1.5rem;
+		background: var(--color-primary, #3b82f6);
+		color: white;
+		text-decoration: none;
+		border-radius: 0.5rem;
+		font-weight: 500;
+		transition: background 0.2s;
+	}
+
+	.browse-btn:hover {
+		background: var(--color-primary-dark, #2563eb);
+	}
+
+	.clear-btn {
+		padding: 0.5rem 1rem;
+		background: none;
+		border: 1px solid var(--color-border, #e2e8f0);
+		border-radius: 0.375rem;
+		color: var(--color-muted, #64748b);
+		font-size: 0.875rem;
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+	.clear-btn:hover {
+		background: var(--color-surface, #f8fafc);
+		border-color: var(--color-muted, #64748b);
 	}
 
 	.wishlist-grid {

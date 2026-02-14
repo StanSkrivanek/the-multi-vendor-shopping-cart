@@ -140,8 +140,7 @@
 		color: var(--color-muted, #64748b);
 	}
 
-	:global(.wishlist-btn),
-	:global(.wishlist-icon) {
+	:global(.wishlist-action) {
 		position: absolute;
 		top: 0.75rem;
 		right: 0.75rem;

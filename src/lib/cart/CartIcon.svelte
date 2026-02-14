@@ -45,10 +45,18 @@
 		cursor: pointer;
 		color: var(--color-foreground, #1e293b);
 		transition: color 0.2s;
+		/* flex-shrink: 0;
+		outline: none; */
 	}
 
 	.cart-icon:hover {
 		color: var(--color-primary, #3b82f6);
+	}
+
+	.cart-icon:focus-visible {
+		outline: 2px solid var(--color-primary, #3b82f6);
+		outline-offset: 2px;
+		border-radius: 4px;
 	}
 
 	.badge {

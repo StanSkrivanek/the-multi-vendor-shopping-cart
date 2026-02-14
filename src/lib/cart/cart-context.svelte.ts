@@ -253,14 +253,30 @@ export function createCartContext(options: CartOptions = {}): CartContext {
 	// ─────────────────────────────────────────────────────────────
 
 	const context: CartContext = {
-		items,
-		summary,
-		isEmpty,
-		isLoading,
-		appliedDiscount,
-		currency,
-		itemCount,
-		totalQuantity,
+		get items() {
+			return items;
+		},
+		get summary() {
+			return summary;
+		},
+		get isEmpty() {
+			return isEmpty;
+		},
+		get isLoading() {
+			return isLoading;
+		},
+		get appliedDiscount() {
+			return appliedDiscount;
+		},
+		get currency() {
+			return currency;
+		},
+		get itemCount() {
+			return itemCount;
+		},
+		get totalQuantity() {
+			return totalQuantity;
+		},
 
 		/**
 		 * Adds an item to the cart or increases quantity if already present.

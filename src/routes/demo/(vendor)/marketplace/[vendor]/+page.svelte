@@ -52,14 +52,14 @@
 						price={formatPrice(product.price, data.vendor.currency)}
 						showTags={true}
 					>
-						{@snippet image()}
+						{#snippet image()}
 							<img src={product.image} alt={product.name} />
-							<div class="wishlist-btn">
+							<div class="wishlist-action">
 								<WishlistButton {product} />
 							</div>
 						{/snippet}
 
-						{@snippet actions()}
+						{#snippet actions()}
 							<AddToCartButton {product} />
 						{/snippet}
 					</ProductCard>

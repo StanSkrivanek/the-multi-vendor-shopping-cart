@@ -21,19 +21,15 @@
 
 	<div class="products-grid">
 		{#each products as product (product.id)}
-			<ProductCard
-				{product}
-				price={formatPrice(product.price)}
-				showTags={false}
-			>
-				{@snippet image()}
+			<ProductCard {product} price={formatPrice(product.price)} showTags={false}>
+				{#snippet image()}
 					<img src={product.image} alt={product.name} />
-					<div class="wishlist-btn">
+					<div class="wishlist-action">
 						<WishlistButton {product} />
 					</div>
 				{/snippet}
 
-				{@snippet actions()}
+				{#snippet actions()}
 					<AddToCartButton {product} />
 				{/snippet}
 			</ProductCard>
