@@ -162,6 +162,7 @@
 		font-size: 0.9375rem;
 		font-weight: 500;
 		background: white;
+		appearance: textfield;
 		-moz-appearance: textfield;
 	}
 
