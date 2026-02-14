@@ -214,8 +214,7 @@ export const products: Product[] = [
 		name: 'Scented Candle Collection',
 		description: 'Set of 3 soy wax candles with essential oils in modern concrete vessels',
 		price: 4499, // $44.99
-		image:
-			'https://images.unsplash.com/photo-1643122966676-29e8597257f7?w=500&q=80',
+		image: 'https://images.unsplash.com/photo-1643122966676-29e8597257f7?w=500&q=80',
 		category: 'Home Fragrance',
 		sku: 'HSL-CND-010',
 		maxQuantity: 8,

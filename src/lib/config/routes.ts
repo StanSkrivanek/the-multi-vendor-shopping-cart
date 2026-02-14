@@ -4,7 +4,7 @@
  */
 export const ROUTES = {
 	HOME: '/',
-    DEMO: '/demo',
+	DEMO: '/demo',
 	PRODUCTS: '/demo/products',
 	MARKETPLACE: '/demo/marketplace',
 	CART: '/demo/cart',

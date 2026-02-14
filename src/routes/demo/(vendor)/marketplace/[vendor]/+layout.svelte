@@ -1,18 +1,11 @@
-<!-- src/routes/demo/marketplace/[vendor]/+layout.svelte -->
+<!-- src/routes/demo/(vendor)/marketplace/[vendor]/+layout.svelte -->
 <script lang="ts">
 	import CartProvider from '$lib/cart/CartProvider.svelte';
 	import VendorHeader from '$lib/components/VendorHeader.svelte';
-	import { layoutState } from '$lib/contexts/layout-context.svelte';
 	import WishlistProvider from '$lib/wishlist/WishlistProvider.svelte';
 	import type { LayoutData } from './$types';
 
 	let { data, children }: { data: LayoutData; children: any } = $props();
-
-	// Hide main header when this layout is active, restore when leaving
-	$effect(() => {
-		layoutState.hideMainHeader = true;
-		return () => (layoutState.hideMainHeader = false);
-	});
 </script>
 
 <!-- Vendor-specific cart AND wishlist (nested, overrides parent contexts) -->

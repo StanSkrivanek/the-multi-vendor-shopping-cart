@@ -2,53 +2,53 @@
 <script lang="ts">
 	interface Props {
 		/** Current quantity */
-		value: number
+		value: number;
 
 		/** Minimum allowed (default: 1) */
-		min?: number
+		min?: number;
 
 		/** Maximum allowed (optional stock limit) */
-		max?: number
+		max?: number;
 
 		/** Called when quantity changes */
-		onchange: (quantity: number) => void
+		onchange: (quantity: number) => void;
 
 		/** Disable all controls */
-		disabled?: boolean
+		disabled?: boolean;
 
 		/** Compact size variant */
-		compact?: boolean
+		compact?: boolean;
 	}
 
-	let { value, min = 1, max, onchange, disabled = false, compact = false }: Props = $props()
+	let { value, min = 1, max, onchange, disabled = false, compact = false }: Props = $props();
 
-	let canDecrement = $derived(value > min && !disabled)
-	let canIncrement = $derived((!max || value < max) && !disabled)
+	let canDecrement = $derived(value > min && !disabled);
+	let canIncrement = $derived((!max || value < max) && !disabled);
 
 	function decrement() {
 		if (canDecrement) {
-			onchange(value - 1)
+			onchange(value - 1);
 		}
 	}
 
 	function increment() {
 		if (canIncrement) {
-			onchange(value + 1)
+			onchange(value + 1);
 		}
 	}
 
 	function handleInput(event: Event) {
-		const input = event.target as HTMLInputElement
-		let newValue = parseInt(input.value, 10)
+		const input = event.target as HTMLInputElement;
+		let newValue = parseInt(input.value, 10);
 
 		// Clamp to valid range
 		if (isNaN(newValue) || newValue < min) {
-			newValue = min
+			newValue = min;
 		} else if (max && newValue > max) {
-			newValue = max
+			newValue = max;
 		}
 
-		onchange(newValue)
+		onchange(newValue);
 	}
 </script>
 

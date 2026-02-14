@@ -1,64 +1,64 @@
 <!-- src/lib/cart/AddToCartButton.svelte -->
 <script lang="ts">
-	import { getCartContext } from './cart-context.svelte'
-	import type { CartProduct, CartItemOptions } from './types'
+	import { getCartContext } from './cart-context.svelte';
+	import type { CartProduct, CartItemOptions } from './types';
 
 	interface Props {
 		/** Product data to add */
-		product: CartProduct
+		product: CartProduct;
 
 		/** Quantity to add (default: 1) */
-		quantity?: number
+		quantity?: number;
 
 		/** Selected variant options */
-		options?: CartItemOptions
+		options?: CartItemOptions;
 
 		/** Additional CSS classes */
-		class?: string
+		class?: string;
 	}
 
-	let { product, quantity = 1, options = {}, class: className = '' }: Props = $props()
+	let { product, quantity = 1, options = {}, class: className = '' }: Props = $props();
 
-	const cart = getCartContext()
+	const cart = getCartContext();
 
 	// Button states
 	// IMPORTANT: Cannot use 'state' as variable name when using $state rune
 	// The variable name would conflict with the rune itself
-	type ButtonState = 'idle' | 'adding' | 'added' | 'error'
-	let buttonState = $state<ButtonState>('idle')
-	let errorMessage = $state('')
+	type ButtonState = 'idle' | 'adding' | 'added' | 'error';
+	let buttonState = $state<ButtonState>('idle');
+	let errorMessage = $state('');
 
 	// Check if this product/variant is already in the cart
-	let isInCart = $derived(cart.hasItem(product.id, options))
-	let cartQuantity = $derived(cart.getQuantity(product.id, options))
+	let isInCart = $derived(cart.hasItem(product.id, options));
+	let cartQuantity = $derived(cart.getQuantity(product.id, options));
 
 	/**
 	 * Handles the add to cart action with visual feedback.
 	 */
 	async function handleAdd() {
-		buttonState = 'adding'
+		buttonState = 'adding';
 
 		// Small delay for visual feedback
-		await new Promise((resolve) => setTimeout(resolve, 200))
+		await new Promise((resolve) => setTimeout(resolve, 200));
 
-		const result = cart.addItem(product, quantity, options)
+		const result = cart.addItem(product, quantity, options);
 
 		if (result.success) {
-			buttonState = 'added'
+			buttonState = 'added';
 
 			// Reset to idle after showing success
 			setTimeout(() => {
-				buttonState = 'idle'
-			}, 2000)
+				buttonState = 'idle';
+			}, 2000);
 		} else {
-			buttonState = 'error'
-			errorMessage = result.message ?? 'Could not add to cart'
+			buttonState = 'error';
+			errorMessage = result.message ?? 'Could not add to cart';
 
 			// Reset to idle after showing error
 			setTimeout(() => {
-				buttonState = 'idle'
-				errorMessage = ''
-			}, 3000)
+				buttonState = 'idle';
+				errorMessage = '';
+			}, 3000);
 		}
 	}
 </script>
