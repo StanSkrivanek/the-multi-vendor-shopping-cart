@@ -11,7 +11,7 @@
 	<div class="header-content">
 		<a href={ROUTES.HOME} class="logo">
 			<ShoppingBag size={24} />
-			<span>Hackpile Chronicles</span>
+			<span>Shopping Cart</span>
 		</a>
 
 		<nav class="main-nav">
